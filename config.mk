@@ -28,3 +28,5 @@ LDFLAGS = -g ${LIBS}
 
 # compiler and linker
 CC = cc
+DESTDIR=${HOME}
+PREFIX=
