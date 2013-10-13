@@ -16,14 +16,14 @@ static Bool runinfullscreen = FALSE; /* Run in fullscreen mode by default */
 static guint defaultfontsize = 12;
 
 /* Webkit default features */
-static Bool enablescrollbars = TRUE;
+static Bool enablescrollbars = FALSE;
 static Bool enablespatialbrowsing = TRUE;
 static Bool enableplugins = TRUE;
 static Bool enablescripts = TRUE;
 static Bool enableinspector = TRUE;
 static Bool loadimages = TRUE;
 static Bool hidebackground  = FALSE;
-static Bool allowgeolocation = TRUE;
+static Bool allowgeolocation = FALSE;
 
 #define SETPROP(p, q) { \
 	.v = (char *[]){ "/bin/sh", "-c", \
@@ -34,11 +34,26 @@ static Bool allowgeolocation = TRUE;
 }
 
 /* DOWNLOAD(URI, referer) */
-#define DOWNLOAD(d, r) { \
+#define DOWNLOADS_PATH "~/Downloads"
+#define VTE_PATH "svte"
+#define DOWNLOAD(d, r) DOWNLOAD_ARIA2(d, r)
+
+#define DOWNLOAD_CURL(d, r) { \
 	.v = (char *[]){ "/bin/sh", "-c", \
-		"st -e /bin/sh -c \"curl -L -J -O --user-agent '$1'" \
+		"mkdir -p "DOWNLOADS_PATH" ;cd "DOWNLOADS_PATH" ; " \
+		VTE_PATH" -e /bin/sh -c \"curl -L -J -O --user-agent '$1'" \
 		" --referer '$2' -b $3 -c $3 '$0';" \
 		" sleep 5;\"", \
+		d, useragent, r, cookiefile, NULL \
+	} \
+}
+
+#define DOWNLOAD_ARIA2(d, r) { \
+	.v = (char *[]){ "/bin/sh", "-c", \
+		"mkdir -p "DOWNLOADS_PATH" ;cd "DOWNLOADS_PATH" ; " \
+		VTE_PATH" -e /bin/sh -c \"aria2c -U '$1'" \
+		" --referer '$2' --load-cookies '$3' --save-cookies '$3' '$0';" \
+		" sleep 3;\"", \
 		d, useragent, r, cookiefile, NULL \
 	} \
 }
