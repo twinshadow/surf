@@ -58,6 +58,18 @@ static Bool allowgeolocation = FALSE;
 	} \
 }
 
+static SearchEngine searchengines[] = {
+  { "g",        "http://www.google.de/search?q=%s"   },
+  { "en",       "http://dict.cc/?s=%s" },
+  { "ug",       "http://%s.uni-goettingen.de" },
+  { "dict",     "http://www.thefreedictionary.com/%s" },
+  { "ddg",      "https://duckduckgo.com/?q=%s" },
+  { "aur",      "https://aur.archlinux.org/packages.php?O=0&K=%s&do_Search=Go" },
+  { "arch",     "https://wiki.archlinux.org/index.php/Special:Search?search=%s&go=Go" },
+  { "wiki",     "http://en.wikipedia.org/w/index.php?title=Special:Search&search=%s&go=Go" },
+  { "wa",       "https://www.wolframalpha.com/input/?i=%s" },
+};
+
 #define MODKEY GDK_CONTROL_MASK
 
 /* hotkeys */
