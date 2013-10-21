@@ -59,15 +59,16 @@ static Bool allowgeolocation = FALSE;
 }
 
 static SearchEngine searchengines[] = {
-  { "g",        "http://www.google.de/search?q=%s"   },
-  { "en",       "http://dict.cc/?s=%s" },
-  { "ug",       "http://%s.uni-goettingen.de" },
-  { "dict",     "http://www.thefreedictionary.com/%s" },
-  { "ddg",      "https://duckduckgo.com/?q=%s" },
-  { "aur",      "https://aur.archlinux.org/packages.php?O=0&K=%s&do_Search=Go" },
   { "arch",     "https://wiki.archlinux.org/index.php/Special:Search?search=%s&go=Go" },
-  { "wiki",     "http://en.wikipedia.org/w/index.php?title=Special:Search&search=%s&go=Go" },
+  { "aur",      "https://aur.archlinux.org/packages.php?O=0&K=%s&do_Search=Go" },
+  { "ddg",      "https://duckduckgo.com/?q=%s" },
+  { "dict",     "http://www.thefreedictionary.com/%s" },
+  { "en",       "http://dict.cc/?s=%s" },
+  { "g",        "https://www.google.com/search?q=%s" },
+  { "gh",       "https://github.com/search?q=%s&ref=simplesearch" },
+  { "ug",       "http://%s.uni-goettingen.de" },
   { "wa",       "https://www.wolframalpha.com/input/?i=%s" },
+  { "wiki",     "http://en.wikipedia.org/w/index.php?title=Special:Search&search=%s&go=Go" },
 };
 
 #define MODKEY GDK_CONTROL_MASK
@@ -99,15 +100,16 @@ static Key keys[] = {
     { MODKEY,               GDK_k,           scroll_v,   { .i = -1 } },
     { MODKEY,               GDK_b,           scroll_v,   { .i = -10000 } },
     { MODKEY,               GDK_space,       scroll_v,   { .i = +10000 } },
-    { MODKEY,               GDK_i,           scroll_h,   { .i = +1 } },
-    { MODKEY,               GDK_u,           scroll_h,   { .i = -1 } },
+    { MODKEY|GDK_SHIFT_MASK,GDK_l,           scroll_h,   { .i = +1 } },
+    { MODKEY|GDK_SHIFT_MASK,GDK_h,           scroll_h,   { .i = -1 } },
+    { MODKEY|GDK_SHIFT_MASK,GDK_u,           scroll_v,   { .i = -10000 } },
 
     { 0,                    GDK_F11,    fullscreen, { 0 } },
     { 0,                    GDK_Escape, stop,       { 0 } },
-    { MODKEY,               GDK_o,      source,     { 0 } },
-    { MODKEY|GDK_SHIFT_MASK,GDK_o,      inspector,  { 0 } },
+    { MODKEY,               GDK_i,      source,     { 0 } },
+    { MODKEY|GDK_SHIFT_MASK,GDK_i,      inspector,  { 0 } },
 
-    { MODKEY,               GDK_g,      spawn,      SETPROP("_SURF_URI", "_SURF_GO") },
+    { MODKEY,               GDK_o,      spawn,      SETPROP("_SURF_URI", "_SURF_GO") },
     { MODKEY,               GDK_f,      spawn,      SETPROP("_SURF_FIND", "_SURF_FIND") },
     { MODKEY,               GDK_slash,  spawn,      SETPROP("_SURF_FIND", "_SURF_FIND") },
 
